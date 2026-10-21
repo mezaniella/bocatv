@@ -196,4 +196,8 @@
          Live TV window does not keep the screen on (CVTE): there the system screensaver would start in the
          middle of a programme. Can also be set with "home_idle_clock_minutes": 10 in a theme's config.json. -->
     <integer name="home_idle_clock_minutes">0</integer>
+
+    <!-- A short line under the clock, in sentence case. Empty hides it. Can also be set with
+         "home_message": "..." in a theme's config.json ("" turns it off). -->
+    <string name="home_message" translatable="false"></string>
 </resources>

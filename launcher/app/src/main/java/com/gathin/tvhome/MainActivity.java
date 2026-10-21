@@ -159,6 +159,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean shamsi;
     /** greeting_name: said after the greeting, which is shown in capitals. */
     private String greetingName = "";
+    /** The theme's colours; a festive skin keeps priority over its accent. */
+    private ThemePalette palette = ThemePalette.DEFAULT;
+    /** cinematic_artwork: false leaves the shelf without the app's artwork, so a wallpaper shows through. */
+    private boolean cinematicArtwork = true;
+    /** home_message(s): picks the line under the clock each time Home shows. */
+    private HomeMessages homeMessages;
     /** Optional time-of-day backdrop (config.xml, sky_intensity); 0 keeps it hidden. */
     private SkyView sky;
     private String vpnApp;
@@ -290,6 +296,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         @Override
         public void run() {
             updateGreeting();
+            if (homeMessages != null && homeMessages.changesWithTime()) {
+                showHomeMessage(homeMessages.pick(MainActivity.this));
+            }
             updateRace();
             updateWifiLabel();
             sky.update();
@@ -331,7 +340,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         sky = findViewById(R.id.sky);
         sky.setIntensity(cfg.skyIntensity);
         glass = findViewById(R.id.glass);
-        if (festive) glass.setAccent(festival.accentColor());
+        palette = cfg.palette;
+        glass.setAccent(baseGlassAccent());
         ambient = findViewById(R.id.ambient);
         // The glow is one bitmap, so its alpha can be applied while drawing it. Otherwise every frame of
         // a fade renders it into a full-screen offscreen buffer first.
@@ -347,6 +357,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroDots = findViewById(R.id.heroDots);
         heroArt = findViewById(R.id.heroArt);
         cinematic = cfg.cinematicHome;
+        cinematicArtwork = cfg.cinematicArtwork;
         if (cinematic) setUpCinematicShelf();
         // dock_title false: the name above the dock (and the cinematic lines under it) never shows; the glow
         // still follows the dock.
@@ -354,6 +365,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         greeting = findViewById(R.id.greeting);
         clockBlock = findViewById(R.id.leftBlock);
         greetingColor = greeting.getCurrentTextColor();
+        if (!festive) greetingColor = palette.accentWithAlpha(0xD9, greetingColor);
+        applyPillPalette();
         btnWifi = findViewById(R.id.btnWifi);
         shamsiDate = findViewById(R.id.shamsiDate);
         stats = findViewById(R.id.stats);
@@ -365,6 +378,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         showStats = cfg.showStats;
         shamsi = cfg.shamsiDate;
         greetingName = cfg.greetingName;
+        homeMessages = new HomeMessages(cfg.homeMessage, cfg.homeMessages, cfg.homeMessageRotation, cfg.homeMessageMinutes);
         if (shamsi) {
             shamsiDate.setVisibility(View.VISIBLE);
             TextView date = findViewById(R.id.date);
@@ -431,7 +445,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             public void onChildViewDetachedFromWindow(@NonNull View v) {
             }
         });
-        if (dockRow) grid.addItemDecoration(new DockDecoration(COLUMNS, density, cinematic, cfg.alwaysShowNames));
+        if (dockRow) grid.addItemDecoration(new DockDecoration(COLUMNS, density, cinematic, cfg.alwaysShowNames,
+                festive ? ThemePalette.DEFAULT : palette));
         if (animations) {
             int enterAnim = reducedMotion ? R.anim.tile_enter_reduced : R.anim.tile_enter;
             float enterDelay = reducedMotion ? 0f : 0.06f;
@@ -458,7 +473,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             // Keep the hero below the header when the library is enabled on a short screen,
             // even when the theme requests an extra visible row below the dock.
             int shelfClearance = cfg.appLibrary ? hero.getMeasuredHeight() + (int) (40 * density) : 0;
-            int want = Math.max(shelfClearance, h - dockRow - gridRows - (int) (AppAdapter.BOTTOM_ROOM_DP * density));
+            // dock_bottom_room only when no row is asked for under the dock: with rows below, tileWidthPx already
+            // sized the tiles around BOTTOM_ROOM_DP. 0 puts the next row's top at the screen edge, out of sight.
+            float bottomRoomDp = rowsBelowDock == 0 ? cfg.dockBottomRoomDp : AppAdapter.BOTTOM_ROOM_DP;
+            int want = Math.max(shelfClearance, h - dockRow - gridRows - (int) (bottomRoomDp * density));
             // Where the rows cannot fit even at the smallest tile (3 rows with the title on), the title keeps its
             // room above the dock and the last rows run off the bottom instead of the title drawing over the clock.
             if (MainActivity.this.dockRow && cfg.dockTitle && rowsBelowDock > 0) want = Math.max(want, (int) (AppAdapter.TITLE_ROOM_DP * density));
@@ -657,6 +675,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         rebuildOnResume = false;
         updateGreeting();
+        if (homeMessages != null) showHomeMessage(homeMessages.pick(this));
         updateRace();
         // The network and Inputs pills keep their state while Home is in the background, and callbacks update them
         // when the network or the inputs change, so this refresh only catches anything missed. Its binder calls
@@ -1061,7 +1080,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         drop();
         reordering = false;
         adapter.setReordering(false);
-        glass.setAccent(festive ? festival.accentColor() : 0);
+        glass.setAccent(baseGlassAccent());
         btnReorder.setActivated(false);
         List<String> keys = adapter.movableKeys();
         List<String> before = orderAtStart;
@@ -1202,7 +1221,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         glassTargetX = x;
         glassTargetY = y;
         // Cinematic shelf: the highlight glows in the dock app's colour, plain white in the grid.
-        int accent = cinematic && !festive && position < COLUMNS ? adapter.ambientColorAt(position) : 0;
+        int accent = cinematic && !festive && position < COLUMNS && !palette.themeTint ? adapter.ambientColorAt(position) : 0;
+        // Grid tiles (and a dock app whose colour is not sampled yet) glow in the theme's accent, if any.
+        if (accent == 0 && !festive) accent = palette.accent;
         if (cinematic && !festive && accent != glassAccent) {
             glassAccent = accent;
             glass.setAccent(accent);
@@ -1267,10 +1288,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     private void showHero(int position, float dockTopInRoot) {
         String label = adapter.labelAt(position);
-        int color = adapter.ambientColorAt(position);
+        int color = shelfColor(position);
         float y = dockTopInRoot - 14 * density - 26 * density - hero.getHeight();
         boolean changed = !label.contentEquals(heroName.getText());
-        if (cinematic) showHeroArt(position);
+        if (cinematic && cinematicArtwork) showHeroArt(position);
 
         if (!animations || reducedMotion) {
             // Snap the shelf instead of sliding and fading it: each of those frames repaints the
@@ -1344,7 +1365,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName.setLetterSpacing(-0.025f);
         heroMeta.setVisibility(View.INVISIBLE);   // keeps its height, so the name does not jump when it fills in
         heroDots.setVisibility(View.VISIBLE);
-        heroArt.setVisibility(View.VISIBLE);
+        heroArt.setVisibility(cinematicArtwork ? View.VISIBLE : View.GONE);
         // One stretched bitmap: apply its alpha while drawing instead of through an offscreen buffer.
         heroArt.forceHasOverlappingRendering(false);
         View scrim = findViewById(R.id.heroScrim);
@@ -1385,7 +1406,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         Bitmap art = heroArtCache.get(key);
         if (art == null) {
-            art = HeroArt.from(adapter.artworkAt(position));
+            art = HeroArt.from(adapter.artworkAt(position), festive ? HeroArt.SATURATION : palette.artworkSaturation());
             if (art != null) heroArtCache.put(key, art);
         }
         heroArtKey = key;
@@ -1520,7 +1541,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * name above the dock does not show (every grid tile has its name underneath).
      */
     private void showGlowOnly(int position) {
-        int color = adapter.ambientColorAt(position);
+        int color = shelfColor(position);
         stopAmbientAnimation();
         hero.animate().cancel();
         ambient.animate().cancel();
@@ -1930,6 +1951,37 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             greeting.setTextColor(greetingColor);
         }
         if (shamsi) shamsiDate.setText(Shamsi.today());
+    }
+
+    /** The shelf and glow colour for this tile: the app's own, or the theme's with cinematic_tint "theme". */
+    private int shelfColor(int position) {
+        int appColor = adapter.ambientColorAt(position);
+        return festive ? appColor : palette.shelfColor(appColor);
+    }
+
+    /** The focus glow's resting colour: the festival's, else the theme's accent, else 0 for white glass. */
+    private int baseGlassAccent() {
+        return festive ? festival.accentColor() : palette.accent;
+    }
+
+    /** Top-bar pills focus in the theme's accent; a festive skin keeps its own pills. */
+    private void applyPillPalette() {
+        if (festive || !palette.hasAccent()) return;
+        int[] ids = {R.id.btnInputs, R.id.btnWifi, R.id.btnReorder, R.id.btnSettings};
+        for (int id : ids) {
+            View v = findViewById(id);
+            if (v != null) v.setBackground(palette.pillBackground(density));
+        }
+    }
+
+    /** home_message: one line under the clock; hidden when empty or when the layout has no slot for it. */
+    private void showHomeMessage(String message) {
+        TextView view = findViewById(R.id.homeMessage);
+        if (view == null) return;
+        boolean show = message != null && !message.isEmpty();
+        view.setText(show ? message : "");
+        if (!festive) view.setTextColor(palette.accentWithAlpha(0xE6, view.getCurrentTextColor()));
+        view.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     // ---- race-weekend panel (a theme's race_calendar) -----------------------------------------------

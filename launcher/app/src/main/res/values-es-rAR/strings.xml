@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rioplatense Spanish (es-AR): only what differs from values-es, plus the strings values-es lacks.
+     TVs are usually set to es-ES; give the launcher its own language with
+     cmd locale set-app-locales com.gathin.tvhome (locales option) es-AR -->
+<resources>
+    <string name="good_morning">Buen día</string>
+    <string name="launcher_settings">Ajustes del launcher</string>
+    <string name="follow_theme_hint">Usá el diseño y los efectos del tema actual o los valores integrados. Aplicar o restablecer un tema también borra estos ajustes.</string>
+    <string name="dock_edit_hint">Elegí el lugar del dock que querés cambiar y apretá OK. Atrás para terminar.</string>
+    <string name="dock_edit_pick_app">Ahora elegí la app que querés poner ahí y apretá OK. Atrás para elegir otro lugar.</string>
+    <string name="reorder_hint">OK agarra una app, las flechas la mueven, Atrás la suelta. Atrás de nuevo para terminar.</string>
+    <string name="library_add_home">Agregar a Inicio</string>
+    <string name="library_recent">Nueva · Agregar a Inicio</string>
+    <string name="library_hint_add">Apretá para agregar a Inicio · Mantené para opciones</string>
+    <string name="library_hint_open">Apretá para abrir · Mantené para opciones</string>
+    <string name="not_available">No disponible en esta tele</string>
+    <string name="tv_settings">Ajustes de la tele</string>
+    <!-- Textos que values-es no traduce (quedaban en ingles). -->
+    <string name="last_opened">Última vez: %1$s</string>
+    <string name="vpn">VPN</string>
+    <string name="vpn_off">VPN apagada</string>
+    <string name="home_settings">Elegir inicio predeterminado</string>
+    <string name="home_settings_help">Elegí tu inicio original para dejar de usar CleanYourTV como inicio, o CleanYourTV para volver. El launcher original tiene que estar activado y la tele tiene que tener un selector de inicio; si estaba desactivado, primero usá el script de restauración.</string>
+    <string name="rows_below_dock_label">Filas debajo del dock</string>
+    <string name="wallpaper_label">Fondo de pantalla</string>
+    <string name="wallpaper_state">Fondo de pantalla: %1$s</string>
+    <string name="wallpaper_none">Ninguno</string>
+    <string name="wallpaper_applied">Fondo de pantalla cambiado</string>
+    <string name="wallpaper_theme_default">El del tema</string>
+    <string name="quick_picture">Imagen</string>
+    <string name="quick_network">Red</string>
+    <string name="quick_apps">Apps</string>
+    <string name="quick_apps_hint">Volver a activar</string>
+    <string name="input_key_service_description">Abre el selector de entradas cuando apretás el botón Input del control.</string>
+    <string name="home_key_name">Botón Home</string>
+    <string name="home_key_description">Hace que el botón Home del control abra este launcher.</string>
+    <string name="card_prompt_title">Nueva tarjeta de %1$s</string>
+    <string name="card_prompt_body">%1$s puede mostrar una tarjeta en tu inicio. Si la dejás oculta, la app sigue con su tarjeta de siempre.</string>
+    <string name="card_prompt_names">La tarjeta se llama \'%1$s\'. La app es \'%2$s\'.</string>
+    <string name="card_prompt_resigned">%1$s se actualizó con otra clave de firma, así que tu respuesta anterior ya no vale. Volvé a decidir para su tarjeta.</string>
+    <string name="card_prompt_relabelled">%1$s le cambió el nombre a su tarjeta desde que decidiste. Volvé a decidir.</string>
+    <string name="card_prompt_hint">Lo podés cambiar después: mantené OK sobre Ajustes y elegí Tarjetas de módulos.</string>
+    <string name="card_prompt_identity">%1$s, clave %2$s</string>
+    <string name="card_keep_hidden">Dejarla oculta</string>
+    <string name="card_show">Mostrar tarjeta</string>
+    <string name="card_not_saved">No se pudo guardar la elección</string>
+    <string name="module_cards">Tarjetas de módulos</string>
+    <string name="no_module_cards">No hay tarjetas de módulos instaladas</string>
+    <string name="card_app_name">App: %1$s</string>
+    <string name="card_state_shown">Visible</string>
+    <string name="card_state_over_limit">Visible, pasa el límite de 8</string>
+    <string name="card_state_hidden">Oculta</string>
+    <string name="card_state_new">Nueva</string>
+    <string name="card_state_new_key">Clave nueva</string>
+    <string name="card_state_new_label">Nombre nuevo</string>
+    <string name="race_kicker">Fecha %1$d · %2$s · %3$s</string>
+    <string name="race_kicker_no_place">Fecha %1$d · %2$s</string>
+    <string name="race_next">%1$s en %2$s</string>
+    <string name="race_lights_out">Largada en %1$s</string>
+    <string name="race_live">%1$s · en vivo</string>
+    <string name="race_finished">Bandera a cuadros</string>
+</resources>

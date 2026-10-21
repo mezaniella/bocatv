@@ -17,3 +17,8 @@ work/
 *.aab
 launcher/hs_err_pid*.log
 launcher/replay_pid*.log
+
+# Personal themes, photos and messages stay on your computer: put them under local/
+local/
+# Original photos before tools/prepare_wallpapers.py; only the adapted wallpapers are committed
+themes/*/originals/

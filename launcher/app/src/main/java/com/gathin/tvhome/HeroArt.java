@@ -14,13 +14,18 @@ import android.graphics.drawable.Drawable;
  */
 final class HeroArt {
     static final int W = 48, H = 27;
-    private static final float SATURATION = 1.7f;
+    static final float SATURATION = 1.7f;
 
     private HeroArt() {
     }
 
     /** The softened artwork, about 5 KB; null when there is nothing to draw. */
     static Bitmap from(Drawable live) {
+        return from(live, SATURATION);
+    }
+
+    /** As {@link #from(Drawable)}, with this saturation: 0 is greyscale, 1 the artwork as is. */
+    static Bitmap from(Drawable live, float saturation) {
         if (live == null) return null;
         // Draw a private copy: changing the bounds of the drawable a tile shows would blank the tile.
         Drawable d = live.getConstantState() != null ? live.getConstantState().newDrawable().mutate() : live;
@@ -39,7 +44,7 @@ final class HeroArt {
 
         int[] px = new int[W * H];
         small.getPixels(px, 0, W, 0, 0, W, H);
-        saturate(px);
+        saturate(px, saturation);
         // Three box passes approximate a gaussian, so the stretched image shows no seams between pixels.
         for (int pass = 0; pass < 3; pass++) {
             px = boxBlur(px, W, H, 2, true);
@@ -51,13 +56,13 @@ final class HeroArt {
         return out;
     }
 
-    private static void saturate(int[] px) {
+    private static void saturate(int[] px, float saturation) {
         for (int i = 0; i < px.length; i++) {
             int p = px[i];
             int r = Color.red(p), g = Color.green(p), b = Color.blue(p);
             float lum = 0.2126f * r + 0.7152f * g + 0.0722f * b;
-            px[i] = Color.rgb(clamp(lum + (r - lum) * SATURATION), clamp(lum + (g - lum) * SATURATION),
-                    clamp(lum + (b - lum) * SATURATION));
+            px[i] = Color.rgb(clamp(lum + (r - lum) * saturation), clamp(lum + (g - lum) * saturation),
+                    clamp(lum + (b - lum) * saturation));
         }
     }
 

@@ -128,6 +128,23 @@ final class Config {
     final boolean ambientGlow;
     /** Minutes Home may sit untouched before the clock screensaver (config.xml, home_idle_clock_minutes); 0 is off. */
     final int homeIdleClockMinutes;
+    /** cinematic_artwork: the shelf shows the focused app's softened artwork (false keeps a wallpaper clear). */
+    final boolean cinematicArtwork;
+    /**
+     * dock_bottom_room: dp kept under the dock row when rows_below_dock is 0 (default 30, AppAdapter.BOTTOM_ROOM_DP).
+     * 0 lowers the dock until the next row starts at the screen's bottom edge, out of sight until you press Down.
+     */
+    final int dockBottomRoomDp;
+    /** A short line under the clock (config.xml or a theme, home_message); empty hides it. */
+    final String homeMessage;
+    /** Several lines for the clock (home_messages); empty to use homeMessage alone. */
+    final List<String> homeMessages;
+    /** How home_messages rotate: HomeMessages.DAILY or HomeMessages.EACH_HOME. */
+    final String homeMessageRotation;
+    /** home_message_minutes: a new message every this many minutes (1-1440); 0 uses homeMessageRotation. */
+    final int homeMessageMinutes;
+    /** The theme's colours (accent_color, tile_color, dock_color); ThemePalette.DEFAULT for the built-in look. */
+    final ThemePalette palette;
 
     private Config(List<String> dockApps, boolean fillDock, List<String> hiddenApps, String liveTvPackage,
                    String liveTvAction, Map<String, String> launchActions, Map<String, String> appLabels,
@@ -138,7 +155,9 @@ final class Config {
                    int[] settingsKeycodes, boolean settingsKeyPanel, boolean wallpaperEnabled, File wallpaper, List<File> wallpapers,
                    int wallpaperRotationMinutes, int wallpaperDim, String wallpaperOrder, boolean overlayApplied,
                    Festival festival, int[] inputKeycodes, List<String> appKeys,
-                   List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes) {
+                   List<RaceWeekend.Race> raceCalendar, boolean cinematicHome, boolean ambientGlow, int homeIdleClockMinutes,
+                   String homeMessage, List<String> homeMessages, String homeMessageRotation, int homeMessageMinutes,
+                   boolean cinematicArtwork, int dockBottomRoomDp, ThemePalette palette) {
         this.inputKeycodes = inputKeycodes;
         this.appKeys = Collections.unmodifiableList(appKeys);
         this.dockApps = Collections.unmodifiableList(dockApps);
@@ -189,6 +208,13 @@ final class Config {
         this.cinematicHome = cinematicHome;
         this.ambientGlow = ambientGlow;
         this.homeIdleClockMinutes = homeIdleClockMinutes;
+        this.homeMessage = homeMessage;
+        this.homeMessages = Collections.unmodifiableList(new ArrayList<>(homeMessages));
+        this.homeMessageRotation = homeMessageRotation;
+        this.homeMessageMinutes = homeMessageMinutes;
+        this.cinematicArtwork = cinematicArtwork;
+        this.dockBottomRoomDp = dockBottomRoomDp;
+        this.palette = palette;
     }
 
     /** The folder the theme tools push into; null when external storage is unavailable. */
@@ -239,6 +265,13 @@ final class Config {
         boolean cinematic = res.getBoolean(R.bool.cinematic_home);
         boolean ambientGlow = res.getBoolean(R.bool.ambient_glow);
         int idleClockMinutes = res.getInteger(R.integer.home_idle_clock_minutes);
+        String homeMessage = res.getString(R.string.home_message).trim();
+        List<String> homeMessages = new ArrayList<>();
+        String homeMessageRotation = HomeMessages.DAILY;
+        int homeMessageMinutes = 0;
+        int accentColor = 0, tileColor = 0, dockColor = 0;
+        boolean themeTint = false, dockStripe = false, cinematicArtwork = true;
+        int dockBottomRoomDp = (int) AppAdapter.BOTTOM_ROOM_DP;
         boolean applied = false;
 
         File dir = dir(ctx);
@@ -288,6 +321,17 @@ final class Config {
             cinematic = bool(json, "cinematic_home", cinematic);
             ambientGlow = bool(json, "ambient_glow", ambientGlow);
             idleClockMinutes = integer(json, "home_idle_clock_minutes", idleClockMinutes, 0, 1440);
+            homeMessage = string(json, "home_message", homeMessage).trim();
+            homeMessages = stringList(json, "home_messages", homeMessages);
+            homeMessageRotation = string(json, "home_message_rotation", homeMessageRotation).trim();
+            homeMessageMinutes = integer(json, "home_message_minutes", 0, 0, 1440);
+            accentColor = color(json, "accent_color", 0);
+            tileColor = color(json, "tile_color", 0);
+            dockColor = color(json, "dock_color", 0);
+            themeTint = "theme".equals(string(json, "cinematic_tint", "app").trim());
+            dockStripe = bool(json, "dock_stripe", false);
+            cinematicArtwork = bool(json, "cinematic_artwork", true);
+            dockBottomRoomDp = integer(json, "dock_bottom_room", dockBottomRoomDp, 0, 200);
         }
         // A theme push or reset invalidates choices made on the TV. On first use, remember the
         // current theme without clearing choices from an older launcher version.
@@ -347,7 +391,8 @@ final class Config {
                 Math.max(0, Math.min(100, skyIntensity)), settingsKeycodes, settingsKeyPanel, wallpaperEnabled, wallpaper,
                 wallpapers, rotationMinutes, wallpaperDim, wallpaperOrder, applied,
                 festival, inputKeycodes, appKeys, json == null ? Collections.emptyList() : raceCalendar(json), cinematic, ambientGlow,
-                Math.max(0, idleClockMinutes));
+                Math.max(0, idleClockMinutes), homeMessage, homeMessages, homeMessageRotation, homeMessageMinutes,
+                cinematicArtwork, dockBottomRoomDp, new ThemePalette(accentColor, tileColor, dockColor, themeTint, dockStripe));
     }
 
     /**

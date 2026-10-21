@@ -273,6 +273,23 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <!-- home_message: a short line under the clock, sentence case. Gone when empty. -->
+                <TextView
+                    android:id="@+id/homeMessage"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/outfit_light"
+                    android:letterSpacing="0.02"
+                    android:focusable="false"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
             <!-- Shown only when show_stats is on. Outside leftBlock, so the top buttons stay level with the clock

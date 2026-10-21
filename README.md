@@ -28,6 +28,32 @@ It reached 7.4M views, people started doing the same to their own TVs, and their
 the lists here: 170+ TV models from 200+ contributors in four days. The repo was called tv-vibehack
 until the 19th; old links work.
 
+## About this fork
+
+A fork of [Gathin23/cleanyourtv](https://github.com/Gathin23/cleanyourtv) with everything below kept,
+plus what came out of debloating and restyling a 1 GB MediaTek Android TV 14 set from a Windows PC.
+**[Leer en español](README.es.md).**
+
+- **Windows tools** in [`tools/windows/`](tools/windows/README.md): a read-only diagnosis, a debloat
+  script with a dry run, background restrictions for streaming apps and a generated revert script, an
+  environment check and safety checks before the launcher handover, and a package inspector that
+  finds what keeps re-enabling an app. They work with any Android TV.
+- **Launcher theming**, all from a theme's `config.json`, no rebuild:
+  - a colour palette: `accent_color` (focus, top-bar pills, greeting, home message), `tile_color`,
+    `dock_color`, a full-width `dock_stripe`, and `cinematic_tint: "theme"` so the cinematic shelf glows
+    in the theme's colour over greyscale artwork instead of each app's colour;
+  - `cinematic_artwork: false` to keep a wallpaper clear under the cinematic shelf;
+  - `dock_bottom_room` to lower the dock so the next row stays hidden until you press Down;
+  - a line of text under the clock: `home_message`, or `home_messages` rotating per day, per Home
+    visit or every N minutes.
+  Every key is listed in [themes/README.md](themes/README.md).
+- **A blue and gold theme**, [`themes/boca`](themes/boca/README.md), with example wallpapers and
+  [`tools/prepare_wallpapers.py`](tools/prepare_wallpapers.py), which crops, scales, darkens behind the
+  text and compresses your own photos for the launcher.
+- **Rioplatense Spanish** (`values-es-rAR`, voseo) and the 45 strings that had no Spanish translation.
+- **[docs/RECOVERY.md](docs/RECOVERY.md)**: what to do when Home, the network or ADB is lost, down to
+  a factory reset from recovery mode.
+
 ## How it works
 
 Android TVs have the same debug bridge as Android phones. Switch on USB debugging in the TV's
@@ -375,6 +401,22 @@ Debloat list paths passed to `disable.sh` and `restore.sh` are relative to the d
 from, so your own lists can live outside the repository. Absolute paths also work.
 
 </details>
+
+## Windows tools (this fork)
+
+PowerShell scripts for the whole job on Windows, each documented in
+[tools/windows/README.md](tools/windows/README.md). They need only adb (found on PATH, in
+`ANDROID_HOME` or the usual SDK folders) and keep everything they dump under `backup/`, which git
+ignores.
+
+```
+powershell -ExecutionPolicy Bypass -File tools\windows\diagnose.ps1 -TvHost 192.168.1.50          # read-only snapshot
+powershell -ExecutionPolicy Bypass -File tools\windows\optimize.ps1 -TvHost 192.168.1.50          # dry run
+powershell -ExecutionPolicy Bypass -File tools\windows\optimize.ps1 -TvHost 192.168.1.50 -Apply   # + revert script
+powershell -ExecutionPolicy Bypass -File tools\windows\verify-environment.ps1                     # JDK 17, SDK 34
+powershell -ExecutionPolicy Bypass -File tools\windows\prepare-launcher.ps1 -TvHost 192.168.1.50  # before the handover
+powershell -ExecutionPolicy Bypass -File tools\windows\verify-launcher.ps1 -TvHost 192.168.1.50   # after it
+```
 
 ## The launcher
 

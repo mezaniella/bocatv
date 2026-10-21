@@ -18,6 +18,7 @@ powershell -ExecutionPolicy Bypass -File tools\theme.ps1 -TvHost 192.168.1.50 th
 | `aurora/` | A dark aurora wallpaper (teal and violet on navy, darker at the bottom) with a matching background colour |
 | `dussehra/` | Festive skin for Dussehra (ends 21 Oct 2026): a marigold toran, a faint gold rangoli, a diya for Wi-Fi, a bell for Inputs, a marigold for Settings and a petal shower |
 | `scenes/` | 14 dark illustrated landscapes in `wallpapers/`, a new one every hour; drawn from code by `tools/scenes_wallpapers.py` |
+| `boca/` | Blue and gold (Boca Juniors colours): navy background, gold focus and greeting, blue dock and tiles, Argentine home messages |
 | `six-columns/` | Six smaller tiles per row and one grid row visible under the dock |
 
 ## Keys
@@ -38,6 +39,7 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `input_action` | string | Action sent with an HDMI/AV row's channel URI when nothing handles the standard `VIEW` (XGIMI: `com.xgimi.action.hdmiPlayer`) |
 | `columns` | 1 to 8 | Tiles per row; tiles shrink to fit from 5 up |
 | `rows_below_dock` | 0 to 3 | Grid rows left visible under the dock; tiles shrink if the dock, its title and that many rows would not fit the screen height |
+| `dock_bottom_room` | 0 to 200 (dp) | With `rows_below_dock` 0: room kept under the dock row (30 by default). 0 lowers the dock until the next row starts at the bottom edge, hidden until you press Down |
 | `dock_title` | bool | The focused dock app's name in large type above the dock (`true`); `false` keeps only the glow |
 | `dock_row` | bool | The dock as its own row with a band (`true`); `false` makes the dock apps the first tiles of one plain grid |
 | `reorder_button` | bool | A reorder button in the top bar (`false` by default); reordering is always in the Settings button's long-press menu |
@@ -50,6 +52,16 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `app_library` | bool | An App library pill after the last Home row: every installed app, add one to Home or take it off (`false` by default). The choices stay on the TV when a theme is pushed or reset; see [docs/app-library.md](../docs/app-library.md) |
 | `shamsi_date` | bool | Show the Solar Hijri date above the Gregorian one |
 | `greeting_name` | string | A name after the greeting, e.g. `"Mr. Trịnh"` for GOOD MORNING, MR. TRỊNH; empty for the greeting alone |
+| `home_message` | string | A short line under the clock, in sentence case (`"Welcome home"`); `""` hides it |
+| `home_messages` | list of strings | Several lines for under the clock; replaces `home_message` when not empty |
+| `home_message_rotation` | `daily` or `each_home` | `daily` (default): one message per day, never the same two days running. `each_home`: a different one every time Home shows |
+| `home_message_minutes` | 0 to 1440 | A new message every this many minutes, also while Home stays on screen; overrides `home_message_rotation`. 0 (default) uses the rotation |
+| `accent_color` | `#RRGGBB` | The theme's accent: focus glow on grid tiles, focused top-bar pills (keep it light, the pill text turns dark), dock edge and stripe, greeting and home message. With a festive skin on, the focus glow's colour (diya gold if not set) |
+| `tile_color` | `#RRGGBB` | Background of tiles for apps without a banner |
+| `dock_color` | `#RRGGBB` | The dock band (translucent with `cinematic_home`) |
+| `cinematic_tint` | `app` or `theme` | `app` (default): the shelf glows in each app's colour. `theme`: always in `dock_color`, over greyscale artwork (needs `dock_color`) |
+| `dock_stripe` | bool | An `accent_color` stripe through the dock row, edge to edge, like the band on a football shirt (needs `accent_color`) |
+| `cinematic_artwork` | bool | The cinematic shelf shows the focused app's softened artwork (`true`, default); `false` keeps the glow and name but lets a wallpaper show through |
 | `module_cards` | bool | Look for module cards and ask about them (`true`); `false` turns the feature off |
 | `reduced_motion` | bool | Calmer motion for weak GPUs: stiff highlight spring, no tile overshoot, short fades, no entrance replay |
 | `vpn_app` | string | App the network pill opens when a VPN is configured; also shows a red "VPN off" badge while no VPN is up |
@@ -66,7 +78,6 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `festival` | string | Turns on a festive skin: the network pill becomes a diya whose flame follows the connection, Inputs a temple bell, Settings a marigold, and the first Home of the day gets a petal shower. `dussehra` and `diwali` have built-in greetings |
 | `festival_until` | `YYYY-MM-DD` | Last day the festive skin shows; it switches itself off after that. A malformed date turns it off |
 | `greeting` | string | Replaces the time-of-day greeting while the festive skin is on |
-| `accent_color` | `#RRGGBB` | Colour of the focus glow while the festive skin is on; diya gold if not set |
 | `settings_key_keycodes` | list of keycodes | Remote buttons that open Settings, for `HomeKeyService` (TCL Google TV gear: `[83]`) |
 | `settings_key_panel` | bool | Those buttons open a small quick settings panel (TV settings, Display, Network, Apps, Launcher settings) instead of the TV's Settings |
 | `input_key_keycodes` | list of keycodes | More remote buttons that open the input switcher, for `InputKeyService` (`KEYCODE_TV` and `KEYCODE_TV_INPUT` always do) |

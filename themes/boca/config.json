@@ -1,0 +1,36 @@
+{
+  "dock_apps": [
+    "com.netflix.ninja",
+    "com.disney.disneyplus",
+    "com.wbd.stream",
+    "com.google.android.youtube.tv"
+  ],
+  "hidden_apps": [
+    "com.mediatek.wwtv.tvcenter"
+  ],
+  "columns": 5,
+  "rows_below_dock": 0,
+  "dock_bottom_room": 0,
+  "cinematic_home": true,
+  "cinematic_tint": "theme",
+  "cinematic_artwork": false,
+  "background_color": "#020B1F",
+  "accent_color": "#FDB913",
+  "tile_color": "#0B2E6B",
+  "dock_color": "#003C82",
+  "dock_stripe": true,
+  "sky_intensity": 0,
+  "home_messages": [
+    "¡Vamos Boca!",
+    "Azul y oro, de punta a punta.",
+    "¿Ya preparaste el mate para el partido?",
+    "Bienvenido a casa."
+  ],
+  "home_message_rotation": "each_home",
+  "home_message_minutes": 0,
+  "wallpaper": true,
+  "wallpaper_rotation_minutes": 30,
+  "wallpaper_dim": 0,
+  "advanced_effects": false,
+  "reduced_motion": false
+}

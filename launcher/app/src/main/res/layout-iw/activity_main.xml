@@ -276,6 +276,23 @@
                             android:textAllCaps="true" />
                     </LinearLayout>
 
+                    <!-- home_message: a short line under the clock, right-aligned for Hebrew. Gone when empty. -->
+                    <TextView
+                        android:id="@+id/homeMessage"
+                        android:gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/outfit_light"
+                        android:letterSpacing="0.02"
+                        android:focusable="false"
+                        android:visibility="gone" />
+
                 </LinearLayout>
             </LinearLayout>
 
