@@ -1,5 +1,7 @@
 # Boca theme (blue and gold)
 
+![The Boca theme on the TV](screenshot.jpg)
+
 A theme in the colours of Boca Juniors: navy background, gold focus, greeting and home message, a blue
 dock band crossed by a gold stripe like the one on the shirt, and a cinematic shelf that always glows
 in blue instead of each app's colour. Messages under the clock are in Rioplatense Spanish and change

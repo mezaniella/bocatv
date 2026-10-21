@@ -1,12 +1,38 @@
-# CleanYourTV (fork) — en español
+<h1 align="center">BocaTV 💙💛</h1>
 
-**[English](README.md)** · Fork de [Gathin23/cleanyourtv](https://github.com/Gathin23/cleanyourtv).
+<p align="center"><b>CleanYourTV con el tema de Boca.</b><br>
+Tu Android TV sin publicidad, más rápida con 1 GB de RAM y vestida de azul y oro.</p>
 
-Limpiá cualquier Android TV o Google TV por Wi-Fi, sin root ni cables, y reemplazá el inicio lleno de
-publicidad por un launcher liviano estilo Apple TV. Este fork mantiene todo lo del proyecto original y
-suma lo que salió de optimizar y personalizar una tele MediaTek de 1 GB con Android TV 14 desde una PC
-con Windows: herramientas de diagnóstico y optimización, temas con colores propios, frases bajo el
-reloj, fondos de pantalla, un tema azul y amarillo, y el launcher en español rioplatense.
+<p align="center">
+  <img src="themes/boca/screenshot.jpg" alt="El tema de Boca en una Android TV: inicio azul con la Bombonera de fondo, saludo y frase en amarillo, dock azul cruzado por una franja amarilla" width="800">
+</p>
+
+<p align="center">
+  <a href="README.md"><b>English</b></a> ·
+  <a href="themes/boca/README.md">El tema de Boca</a> ·
+  <a href="tools/windows/README.md">Herramientas de Windows</a> ·
+  <a href="https://github.com/Gathin23/cleanyourtv">Proyecto original</a>
+</p>
+
+## Por qué este fork
+
+Empezó con una tele Android lenta en casa: publicidad antes de llegar a Netflix, apps que nadie pidió,
+telemetría y 1 GB de RAM que nunca alcanzaba. [CleanYourTV](https://github.com/Gathin23/cleanyourtv)
+resolvió la publicidad y las apps de más; este fork es lo que vino después:
+
+- **Hacer todo desde Windows**, con scripts que muestran qué van a cambiar antes de cambiarlo y dejan
+  la vuelta atrás de cada paso.
+- **Que una tele de 1 GB ande rápido**, no solo que esté limpia: apps de streaming que dejan de correr
+  en segundo plano y un inicio que vuelve al instante.
+- **Que se vea de Boca**: azul y oro, la franja amarilla cruzando el dock como la de la camiseta, la
+  Bombonera detrás de las apps y una frase en castellano rioplatense debajo del reloj.
+
+Todo quedó genérico: las herramientas sirven para cualquier Android TV, las opciones de los temas para
+cualquier color, y el tema de Boca es un tema más, que podés usar o no.
+
+Este fork mantiene todo lo del [proyecto original](https://github.com/Gathin23/cleanyourtv): limpiar
+cualquier Android TV o Google TV por Wi-Fi, sin root ni cables, y reemplazar el inicio lleno de
+publicidad por un launcher liviano estilo Apple TV.
 
 ## Cómo funciona
 
@@ -158,6 +184,14 @@ Apagá la **Depuración por USB** y la **Depuración inalámbrica** en las opcio
 puerto 5555 le da acceso total a la tele a cualquiera conectado a tu red. Comprobalo desde la PC:
 `Test-NetConnection <ip de la tele> -Port 5555` tiene que dar `False`. El launcher y todos los cambios
 siguen funcionando sin la depuración.
+
+## Contacto
+
+| Para | Dónde |
+|---|---|
+| **Este fork**: herramientas de Windows, tema de Boca, colores de los temas y frases | [Issues](https://github.com/mezaniella/bocatv/issues) · [@mezaniella](https://github.com/mezaniella) · mezaniella [arroba] hotmail [punto] com |
+| **El launcher original y los modelos de tele** | [Discussions del proyecto original](https://github.com/Gathin23/cleanyourtv/discussions) |
+| **Problemas de seguridad** | En privado, por la [pestaña Security del original](https://github.com/Gathin23/cleanyourtv/security) |
 
 ## Créditos y licencia
 

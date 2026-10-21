@@ -1,3 +1,61 @@
+<h1 align="center">BocaTV 💙💛</h1>
+
+<p align="center"><b>CleanYourTV with a Boca Juniors theme.</b><br>
+Your Android TV, without the ads, faster on 1 GB of RAM, and dressed in blue and gold.</p>
+
+<p align="center">
+  <img src="themes/boca/screenshot.jpg" alt="The Boca theme on an Android TV: navy Home with La Bombonera behind, gold greeting and message, blue dock crossed by a gold stripe" width="800">
+</p>
+
+<p align="center">
+  <a href="README.es.md"><b>Leer en español</b></a> ·
+  <a href="themes/boca/README.md">The Boca theme</a> ·
+  <a href="tools/windows/README.md">Windows tools</a> ·
+  <a href="https://github.com/Gathin23/cleanyourtv">Original project</a>
+</p>
+
+## Why this fork
+
+It started with a slow Android TV at home: ads before you could reach Netflix, apps nobody asked for,
+telemetry, and 1 GB of RAM that never seemed to be enough. [CleanYourTV](https://github.com/Gathin23/cleanyourtv)
+solved the ads and the bloat; this fork is what came after:
+
+- **Doing it all from Windows**, with scripts that show what they would change before changing it and
+  leave a way back for every step.
+- **Making a 1 GB TV feel fast**, not just clean: streaming apps that stop running in the background,
+  a Home that comes back instantly.
+- **Making it look like Boca**: blue and gold, the gold stripe across the dock like the one on the
+  shirt, La Bombonera behind the apps and a line in Rioplatense Spanish under the clock.
+
+Everything is kept generic: the tools work with any Android TV, the theme options work for any colours,
+and the Boca theme is one more theme you can push or skip.
+
+## What this fork adds
+
+- **Windows tools** in [`tools/windows/`](tools/windows/README.md): a read-only diagnosis, a debloat
+  script with a dry run, background restrictions for streaming apps and a generated revert script, an
+  environment check and safety checks before the launcher handover, and a package inspector that
+  finds what keeps re-enabling an app. They work with any Android TV.
+- **Launcher theming**, all from a theme's `config.json`, no rebuild:
+  - a colour palette: `accent_color` (focus, top-bar pills, greeting, home message), `tile_color`,
+    `dock_color`, a full-width `dock_stripe`, and `cinematic_tint: "theme"` so the cinematic shelf glows
+    in the theme's colour over greyscale artwork instead of each app's colour;
+  - `cinematic_artwork: false` to keep a wallpaper clear under the cinematic shelf;
+  - `dock_bottom_room` to lower the dock so the next row stays hidden until you press Down;
+  - a line of text under the clock: `home_message`, or `home_messages` rotating per day, per Home
+    visit or every N minutes.
+  Every key is listed in [themes/README.md](themes/README.md).
+- **A blue and gold theme**, [`themes/boca`](themes/boca/README.md), with example wallpapers and
+  [`tools/prepare_wallpapers.py`](tools/prepare_wallpapers.py), which crops, scales, darkens behind the
+  text and compresses your own photos for the launcher.
+- **Rioplatense Spanish** (`values-es-rAR`, voseo) and the 45 strings that had no Spanish translation.
+- **[docs/RECOVERY.md](docs/RECOVERY.md)**: what to do when Home, the network or ADB is lost, down to
+  a factory reset from recovery mode.
+
+<p align="center"><sub>Below: the original CleanYourTV README, kept as it is upstream.</sub></p>
+
+---
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="https://raw.githubusercontent.com/Gathin23/cleanyourtv/main/docs/banner.png" alt="CleanYourTV. Your TV, minus the ads. Strip the bloatware from any Android TV or Google TV over Wi-Fi and replace the ad-filled home screen with a clean launcher that looks like an Apple TV. No root, no cable, nothing uninstalled, and a one-line restore." width="800"></a>
 </p>
@@ -27,32 +85,6 @@ On 17 October 2026 I posted a before and after of my parents' TV, cleaned up by 
 It reached 7.4M views, people started doing the same to their own TVs, and their replies turned into
 the lists here: 170+ TV models from 200+ contributors in four days. The repo was called tv-vibehack
 until the 19th; old links work.
-
-## About this fork
-
-A fork of [Gathin23/cleanyourtv](https://github.com/Gathin23/cleanyourtv) with everything below kept,
-plus what came out of debloating and restyling a 1 GB MediaTek Android TV 14 set from a Windows PC.
-**[Leer en español](README.es.md).**
-
-- **Windows tools** in [`tools/windows/`](tools/windows/README.md): a read-only diagnosis, a debloat
-  script with a dry run, background restrictions for streaming apps and a generated revert script, an
-  environment check and safety checks before the launcher handover, and a package inspector that
-  finds what keeps re-enabling an app. They work with any Android TV.
-- **Launcher theming**, all from a theme's `config.json`, no rebuild:
-  - a colour palette: `accent_color` (focus, top-bar pills, greeting, home message), `tile_color`,
-    `dock_color`, a full-width `dock_stripe`, and `cinematic_tint: "theme"` so the cinematic shelf glows
-    in the theme's colour over greyscale artwork instead of each app's colour;
-  - `cinematic_artwork: false` to keep a wallpaper clear under the cinematic shelf;
-  - `dock_bottom_room` to lower the dock so the next row stays hidden until you press Down;
-  - a line of text under the clock: `home_message`, or `home_messages` rotating per day, per Home
-    visit or every N minutes.
-  Every key is listed in [themes/README.md](themes/README.md).
-- **A blue and gold theme**, [`themes/boca`](themes/boca/README.md), with example wallpapers and
-  [`tools/prepare_wallpapers.py`](tools/prepare_wallpapers.py), which crops, scales, darkens behind the
-  text and compresses your own photos for the launcher.
-- **Rioplatense Spanish** (`values-es-rAR`, voseo) and the 45 strings that had no Spanish translation.
-- **[docs/RECOVERY.md](docs/RECOVERY.md)**: what to do when Home, the network or ADB is lost, down to
-  a factory reset from recovery mode.
 
 ## How it works
 
@@ -739,6 +771,7 @@ The people whose work is in this repo:
 
 | For | Where |
 |---|---|
+| **This fork**: Windows tools, the Boca theme, theme colours and home messages | [Issues](https://github.com/mezaniella/bocatv/issues) · [@mezaniella](https://github.com/mezaniella) · mezaniella [at] hotmail [dot] com |
 | **Questions about your TV** | [GitHub Discussions](https://github.com/Gathin23/cleanyourtv/discussions) |
 | **Press and partnerships** | [hello@itsgathin.com](mailto:hello@itsgathin.com) |
 | **Security issues** | Report them privately through the [Security tab](https://github.com/Gathin23/cleanyourtv/security), see [`SECURITY.md`](SECURITY.md) |
