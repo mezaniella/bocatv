@@ -4,7 +4,8 @@
 Your Android TV, without the ads, faster on 1 GB of RAM, and dressed in blue and gold.</p>
 
 <p align="center">
-  <img src="themes/boca/screenshot.jpg" alt="The Boca theme on an Android TV: navy Home with La Bombonera behind, gold greeting and message, blue dock crossed by a gold stripe" width="800">
+  <img src="themes/boca/screenshot.jpg" alt="The Boca theme on an Android TV: navy Home with La Bombonera behind, gold greeting and message, blue dock crossed by a gold stripe" width="49%">
+  <img src="themes/boca/screensaver.jpg" alt="The Boca screensaver: a thin white clock over a blue and gold glow, a gold stripe and the date in gold" width="49%">
 </p>
 
 <p align="center">
@@ -45,6 +46,9 @@ and the Boca theme is one more theme you can push or skip.
   - a line of text under the clock: `home_message`, or `home_messages` rotating per day, per Home
     visit or every N minutes.
   Every key is listed in [themes/README.md](themes/README.md).
+- **A themed screensaver**: the launcher's clock takes the theme's colours, and a theme's `screensaver`
+  section makes it the TV's screensaver and sets when the TV sleeps ([`tools/windows/screensaver.ps1`](tools/windows/README.md)
+  does it on its own, and spots the disabled screensaver that makes a debloated TV keep turning off).
 - **A blue and gold theme**, [`themes/boca`](themes/boca/README.md), with example wallpapers and
   [`tools/prepare_wallpapers.py`](tools/prepare_wallpapers.py), which crops, scales, darkens behind the
   text and compresses your own photos for the launcher.

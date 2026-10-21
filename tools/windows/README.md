@@ -25,6 +25,7 @@ powershell -ExecutionPolicy Bypass -File tools\windows\<script>.ps1 -TvHost <tv 
 | `inspect-package.ps1` | No | Why an app keeps coming back or starting: state and `lastDisabledCaller`, boot receivers, background permissions, log lines for state changes and starts, who binds it. |
 | `verify-environment.ps1` | No (no TV) | JDK 17+, Android SDK platform 34, build-tools 34.0.0, sdkmanager, Python, Git. |
 | `prepare-launcher.ps1` | No | Sets `JAVA_HOME` / `ANDROID_HOME`, writes `launcher\local.properties`, creates `tools\venv`, tests `tools\tv.py` on port 5555 and checks the Wi-Fi network was not saved by the setup wizard before `launcher\build-and-install.ps1`. |
+| `screensaver.ps1` | With `-Apply` | What the TV does when idle: sets the launcher's clock as screensaver, when it starts (`-StartAfterMinutes`, 10) and when the TV sleeps (`-SleepAfterHours`, 4; 0 never). Read-only without `-Apply`; writes a revert script. Fixes a TV that turns off instead of showing a screensaver because the old one (`com.google.android.backdrop`) was disabled. |
 | `verify-launcher.ps1` | No | After installing: who owns Home, disabled launchers, accessibility services, the launcher's language, RAM and the biggest processes. |
 | `AdbTools.psm1` | — | The module the others share: finds adb, connects (also through wireless debugging's mDNS), runs commands. |
 

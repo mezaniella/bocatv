@@ -31,6 +31,10 @@
   "wallpaper": true,
   "wallpaper_rotation_minutes": 30,
   "wallpaper_dim": 0,
+  "screensaver": {
+    "start_after_minutes": 10,
+    "sleep_after_hours": 4
+  },
   "advanced_effects": false,
   "reduced_motion": false
 }

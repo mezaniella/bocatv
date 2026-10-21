@@ -1,11 +1,15 @@
 # Boca theme (blue and gold)
 
-![The Boca theme on the TV](screenshot.jpg)
+| Home | Screensaver |
+|---|---|
+| ![The Boca theme on the TV](screenshot.jpg) | ![The Boca screensaver](screensaver.jpg) |
 
 A theme in the colours of Boca Juniors: navy background, gold focus, greeting and home message, a blue
 dock band crossed by a gold stripe like the one on the shirt, and a cinematic shelf that always glows
 in blue instead of each app's colour. Messages under the clock are in Spanish and change
-every time Home comes back.
+every time Home comes back. The screensaver is the launcher's clock in the same colours (navy, a blue and
+gold glow, the gold stripe under the time); pushing the theme makes it the TV's screensaver after 10 idle
+minutes and puts the TV to sleep after 4 idle hours (`screensaver` in `config.json`).
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tools\theme.ps1 -TvHost <tv ip> themes\boca

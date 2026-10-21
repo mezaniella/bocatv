@@ -61,5 +61,12 @@ if (Test-Path $wallpapers -PathType Container) {
     }
 }
 & $py -I tv.py "printf '%s' '$revision' > $tmp-theme_revision; $(Put 'theme_revision')" | Out-Null
+# The theme's "screensaver" section: the launcher's clock as the TV's screensaver, when it starts and when
+# the TV sleeps. These are system settings a launcher cannot change itself, so they are set here.
+$saver = (& $py -I screensaver_settings.py $config) -join ''
+if ($saver) {
+    & $py -I tv.py $saver | Out-Null
+    Write-Host 'Screensaver: the launcher''s clock (theme "screensaver" section; tools\windows\screensaver.ps1 shows or undoes it)'
+}
 & $py -I tv.py "$restart; echo applied"
 Write-Host "Theme $(Split-Path $Theme -Leaf) is on the TV. Undo with: tools\theme.ps1 -TvHost $TvHost -Reset"

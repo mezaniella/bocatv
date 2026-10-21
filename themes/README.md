@@ -40,6 +40,7 @@ is ignored, and a file that doesn't parse is ignored as a whole, so a theme can 
 | `columns` | 1 to 8 | Tiles per row; tiles shrink to fit from 5 up |
 | `rows_below_dock` | 0 to 3 | Grid rows left visible under the dock; tiles shrink if the dock, its title and that many rows would not fit the screen height |
 | `dock_bottom_room` | 0 to 200 (dp) | With `rows_below_dock` 0: room kept under the dock row (30 by default). 0 lowers the dock until the next row starts at the bottom edge, hidden until you press Down |
+| `screensaver` | object | `{"start_after_minutes": 10, "sleep_after_hours": 4}`: `tools/theme.sh` / `theme.ps1` make the launcher's clock the TV's screensaver, starting after that many idle minutes (1-120), and put the TV to sleep after that many idle hours (0-24, 0 never). See *Screensaver* below |
 | `dock_title` | bool | The focused dock app's name in large type above the dock (`true`); `false` keeps only the glow |
 | `dock_row` | bool | The dock as its own row with a band (`true`); `false` makes the dock apps the first tiles of one plain grid |
 | `reorder_button` | bool | A reorder button in the top bar (`false` by default); reordering is always in the Settings button's long-press menu |
@@ -147,6 +148,28 @@ the plain background; the default is off (the reference launcher looks exactly a
 ```json
 { "sky_intensity": 60 }
 ```
+
+## Screensaver
+
+![The Clock screensaver in the Boca theme's colours](boca/screensaver.jpg)
+
+The launcher's Clock screensaver dresses itself from the theme: `background_color` behind it, a glow
+that alternates between `dock_color` and `accent_color` (instead of the built-in five colours), the date
+in the accent, and with `dock_stripe` an accent stripe between the clock and the date. A theme without
+those keys keeps the built-in look.
+
+Which screensaver the TV uses, and when, are system settings a launcher cannot change. Add a
+`screensaver` section and the push script sets them over ADB:
+
+```json
+{ "screensaver": { "start_after_minutes": 10, "sleep_after_hours": 4 } }
+```
+
+`"screensaver": true` takes those defaults; `sleep_after_hours: 0` never puts the TV to sleep. The values
+stay after `--reset`. `tools/windows/screensaver.ps1` shows them and can set or undo them on its own.
+
+A TV that keeps switching itself off after a debloat usually still names a screensaver that was disabled
+(the ambient `com.google.android.backdrop`): with no screensaver to start, the screen goes off instead.
 
 ## Adding a theme
 

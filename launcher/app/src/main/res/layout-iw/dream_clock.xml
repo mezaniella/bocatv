@@ -51,6 +51,18 @@
                 android:includeFontPadding="false" />
         </LinearLayout>
 
+        <!-- dock_stripe: an accent stripe between the clock and the date, like the band on a football shirt.
+             ClockScene colours it and shows it only when the theme asks. -->
+        <View
+            android:id="@+id/dreamStripe"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:visibility="gone" />
+
         <TextClock
             android:id="@+id/dreamDate"
             android:layout_width="wrap_content"

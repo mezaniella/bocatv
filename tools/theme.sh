@@ -73,5 +73,12 @@ if [ -d "$THEME/wallpapers" ]; then
   done
 fi
 tv "printf '%s' '$REVISION' > $TMP-theme_revision; $(put theme_revision)" >/dev/null
+# The theme's "screensaver" section: the launcher's clock as the TV's screensaver, when it starts and when
+# the TV sleeps. These are system settings a launcher cannot change itself, so they are set here.
+SAVER="$("$PY" -I screensaver_settings.py "$THEME/config.json")"
+if [ -n "$SAVER" ]; then
+  tv "$SAVER" >/dev/null
+  echo "Screensaver: the launcher's clock (theme \"screensaver\" section; tools/windows/screensaver.ps1 shows or undoes it)"
+fi
 tv "$RESTART; echo applied" | tail -n 1
 echo "Theme $(basename "$THEME") is on the TV. Undo with: tools/theme.sh --reset"

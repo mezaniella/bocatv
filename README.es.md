@@ -4,7 +4,8 @@
 Tu Android TV sin publicidad, más rápida con 1 GB de RAM y vestida de azul y oro.</p>
 
 <p align="center">
-  <img src="themes/boca/screenshot.jpg" alt="El tema de Boca en una Android TV: inicio azul con la Bombonera de fondo, saludo y frase en amarillo, dock azul cruzado por una franja amarilla" width="800">
+  <img src="themes/boca/screenshot.jpg" alt="El tema de Boca en una Android TV: inicio azul con la Bombonera de fondo, saludo y frase en amarillo, dock azul cruzado por una franja amarilla" width="49%">
+  <img src="themes/boca/screensaver.jpg" alt="El salvapantallas de Boca: reloj blanco sobre un brillo azul y dorado, franja amarilla y fecha en amarillo" width="49%">
 </p>
 
 <p align="center">
@@ -142,6 +143,7 @@ Opciones nuevas de este fork (todas las demás, en [themes/README.md](themes/REA
 | `home_message`, `home_messages` | Una frase, o varias, debajo del reloj |
 | `home_message_rotation` | `daily` (una por día) o `each_home` (una distinta cada vez que volvés al inicio) |
 | `home_message_minutes` | Cambiar la frase cada N minutos, incluso con el inicio en pantalla |
+| `screensaver` | `{"start_after_minutes": 10, "sleep_after_hours": 4}`: al subir el tema, el reloj del launcher pasa a ser el salvapantallas, arranca a los N minutos sin uso y la tele se apaga a las N horas (`0`: nunca) |
 
 Si un ajuste del tema no se aplica, en la tele mantené OK sobre **Ajustes → Ajustes del launcher →
 Seguir el tema**: lo que se elige en la tele tiene prioridad hasta que tocás esa opción.
@@ -149,7 +151,8 @@ Seguir el tema**: lo que se elige en la tele tiene prioridad hasta que tocás es
 ### Tema azul y amarillo
 
 [`themes/boca`](themes/boca/README.md): fondo azul noche, foco y saludo amarillos, dock azul cruzado
-por una franja amarilla, la parte de arriba siempre en azul, frases en español y seis
+por una franja amarilla, la parte de arriba siempre en azul, un salvapantallas con el reloj en los mismos
+colores (arranca a los 10 minutos; la tele se apaga a las 4 horas sin uso), frases en español y seis
 fondos de ejemplo que rotan cada 30 minutos.
 
 **Los fondos son de ejemplo:** sumá, cambiá o borrá los que quieras de `themes/boca/wallpapers/`.
@@ -165,6 +168,25 @@ más chicas que la pantalla. Las originales en `originals/` no se suben (git las
 
 **Tus cosas personales** (tus frases, tus fotos, tu lista de apps) van en `local/`, que git ignora:
 copiá el tema a `local\themes\boca`, cambialo ahí y subí esa carpeta con `tools\theme.ps1`.
+
+### Salvapantallas
+
+![El salvapantallas con los colores del tema de Boca](themes/boca/screensaver.jpg)
+
+El reloj del launcher se viste con los colores del tema: fondo, brillo que alterna entre el color del dock
+y el de acento, fecha en el color de acento y, con `dock_stripe`, la franja entre la hora y la fecha.
+
+Cuándo arranca y cuándo se apaga la tele son ajustes del sistema que el launcher no puede cambiar: los
+aplica `tools\theme.ps1` si el tema tiene la sección `screensaver`, o por separado:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\windows\screensaver.ps1 -TvHost 192.168.1.50          # ver cómo está
+powershell -ExecutionPolicy Bypass -File tools\windows\screensaver.ps1 -TvHost 192.168.1.50 -Apply   # 10 min / 4 h
+```
+
+**¿La tele se apaga a cada rato después de la limpieza?** Casi siempre es porque se desactivó el
+salvapantallas original (`com.google.android.backdrop`) y Android lo sigue buscando: como no lo encuentra,
+apaga la pantalla. El script lo detecta y lo avisa.
 
 ## Si algo sale mal
 

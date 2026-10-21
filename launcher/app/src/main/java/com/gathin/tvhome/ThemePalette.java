@@ -42,17 +42,32 @@ final class ThemePalette {
      * colour lifted a little towards white with cinematic_tint "theme" (a dark navy glow would barely show).
      */
     int shelfColor(int appColor) {
-        if (!themeTint) return appColor;
-        int r = (dock >> 16) & 0xFF, g = (dock >> 8) & 0xFF, b = dock & 0xFF;
-        r += (255 - r) / 4;
-        g += (255 - g) / 4;
-        b += (255 - b) / 4;
-        return 0xFF000000 | (r << 16) | (g << 8) | b;
+        return themeTint ? lift(dock) : appColor;
     }
 
     /** Saturation for the shelf's artwork: none with the theme tint, so app colours never fight the theme. */
     float artworkSaturation() {
         return themeTint ? 0f : HeroArt.SATURATION;
+    }
+
+    /**
+     * The clock screensaver's glow colours, in turn: the dock colour (lifted like the shelf's) and the
+     * accent. Null when the theme sets neither, so ClockScene keeps its own palette.
+     */
+    int[] clockGlow() {
+        if (dock == 0 && accent == 0) return null;
+        if (dock == 0) return new int[]{accent};
+        int blue = lift(dock);
+        return accent == 0 ? new int[]{blue} : new int[]{blue, accent};
+    }
+
+    /** A colour a quarter of the way to white: a dark theme colour would barely glow on a dark screen. */
+    private static int lift(int color) {
+        int r = (color >> 16) & 0xFF, g = (color >> 8) & 0xFF, b = color & 0xFF;
+        r += (255 - r) / 4;
+        g += (255 - g) / 4;
+        b += (255 - b) / 4;
+        return 0xFF000000 | (r << 16) | (g << 8) | b;
     }
 
     /** The dock stripe's colour: the accent, nearly opaque. */
