@@ -4,8 +4,11 @@
 Tu Android TV sin publicidad, más rápida con 1 GB de RAM y vestida de azul y oro.</p>
 
 <p align="center">
-  <img src="themes/boca/screenshot.jpg" alt="El tema de Boca en una Android TV: inicio azul con la Bombonera de fondo, saludo y frase en amarillo, dock azul cruzado por una franja amarilla" width="49%">
-  <img src="themes/boca/screensaver.jpg" alt="El salvapantallas de Boca: reloj blanco sobre un brillo azul y dorado, franja amarilla y fecha en amarillo" width="49%">
+  <img src="themes/boca/screenshot.jpg" alt="El tema de Boca en una Android TV: inicio azul con la Bombonera de fondo, saludo y frase en amarillo, dock azul cruzado por una franja amarilla" width="800">
+</p>
+
+<p align="center">
+  <img src="themes/boca/screensaver.jpg" alt="El salvapantallas de Boca: reloj blanco sobre un brillo azul y dorado, franja amarilla y fecha en amarillo" width="800">
 </p>
 
 <p align="center">

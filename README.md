@@ -4,8 +4,11 @@
 Your Android TV, without the ads, faster on 1 GB of RAM, and dressed in blue and gold.</p>
 
 <p align="center">
-  <img src="themes/boca/screenshot.jpg" alt="The Boca theme on an Android TV: navy Home with La Bombonera behind, gold greeting and message, blue dock crossed by a gold stripe" width="49%">
-  <img src="themes/boca/screensaver.jpg" alt="The Boca screensaver: a thin white clock over a blue and gold glow, a gold stripe and the date in gold" width="49%">
+  <img src="themes/boca/screenshot.jpg" alt="The Boca theme on an Android TV: navy Home with La Bombonera behind, gold greeting and message, blue dock crossed by a gold stripe" width="800">
+</p>
+
+<p align="center">
+  <img src="themes/boca/screensaver.jpg" alt="The Boca screensaver: a thin white clock over a blue and gold glow, a gold stripe and the date in gold" width="800">
 </p>
 
 <p align="center">
