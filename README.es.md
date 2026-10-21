@@ -25,7 +25,7 @@ resolvió la publicidad y las apps de más; este fork es lo que vino después:
 - **Que una tele de 1 GB ande rápido**, no solo que esté limpia: apps de streaming que dejan de correr
   en segundo plano y un inicio que vuelve al instante.
 - **Que se vea de Boca**: azul y oro, la franja amarilla cruzando el dock como la de la camiseta, la
-  Bombonera detrás de las apps y una frase en castellano rioplatense debajo del reloj.
+  Bombonera detrás de las apps y una frase en español debajo del reloj.
 
 Todo quedó genérico: las herramientas sirven para cualquier Android TV, las opciones de los temas para
 cualquier color, y el tema de Boca es un tema más, que podés usar o no.
@@ -149,7 +149,7 @@ Seguir el tema**: lo que se elige en la tele tiene prioridad hasta que tocás es
 ### Tema azul y amarillo
 
 [`themes/boca`](themes/boca/README.md): fondo azul noche, foco y saludo amarillos, dock azul cruzado
-por una franja amarilla, la parte de arriba siempre en azul, frases en castellano rioplatense y seis
+por una franja amarilla, la parte de arriba siempre en azul, frases en español y seis
 fondos de ejemplo que rotan cada 30 minutos.
 
 **Los fondos son de ejemplo:** sumá, cambiá o borrá los que quieras de `themes/boca/wallpapers/`.

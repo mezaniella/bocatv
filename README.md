@@ -25,7 +25,7 @@ solved the ads and the bloat; this fork is what came after:
 - **Making a 1 GB TV feel fast**, not just clean: streaming apps that stop running in the background,
   a Home that comes back instantly.
 - **Making it look like Boca**: blue and gold, the gold stripe across the dock like the one on the
-  shirt, La Bombonera behind the apps and a line in Rioplatense Spanish under the clock.
+  shirt, La Bombonera behind the apps and a line in Spanish under the clock.
 
 Everything is kept generic: the tools work with any Android TV, the theme options work for any colours,
 and the Boca theme is one more theme you can push or skip.

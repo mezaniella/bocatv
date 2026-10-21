@@ -4,7 +4,7 @@
 
 A theme in the colours of Boca Juniors: navy background, gold focus, greeting and home message, a blue
 dock band crossed by a gold stripe like the one on the shirt, and a cinematic shelf that always glows
-in blue instead of each app's colour. Messages under the clock are in Rioplatense Spanish and change
+in blue instead of each app's colour. Messages under the clock are in Spanish and change
 every time Home comes back.
 
 ```powershell
