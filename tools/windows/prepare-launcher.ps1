@@ -92,5 +92,6 @@ Write-Host ("   Wi-Fi saved by: {0} -> {1}" -f ($wifi -replace "`n", ', '),
     $(if ($wifiOk) { 'OK' } else { 'the setup wizard: forget and re-join the network in Settings first' })) -ForegroundColor $(if ($wifiOk) { 'Green' } else { 'Red' })
 Write-Host "   Home now: $homeA"
 Write-Host ''
-if ($wifiOk) { Write-Host 'Ready: launcher\build-and-install.ps1 -TvHost <tv ip>' -ForegroundColor Green }
+$next = 'Ready: run launcher\build-and-install.ps1 with the same TV address.'
+if ($wifiOk) { Write-Host $next -ForegroundColor Green }
 else         { Write-Host 'Not yet: fix what is marked above.' -ForegroundColor Red }

@@ -54,7 +54,7 @@ $pkg = ($Component -split '/')[0]
 $installed = @(Get-AdbPackages) -contains $pkg
 $disabled  = @(Get-AdbPackages -Flags '-d')
 Write-Host "Screensaver app $pkg : $(if ($installed) { 'installed' } else { 'NOT INSTALLED' })" -ForegroundColor $(if ($installed) { 'Green' } else { 'Red' })
-if (-not $installed) { throw "Install the launcher first (launcher\build-and-install.ps1), or pass -Component." }
+if (-not $installed) { throw "Install the launcher first (launcher\build-and-install.ps1)." }
 
 $current = (Invoke-AdbShell -Command 'settings get secure screensaver_components').Text
 $currentPkg = ($current -split '/')[0]
@@ -80,10 +80,10 @@ $rows | Format-Table -AutoSize -Wrap
 
 if ($Apply -and $undo.Count) {
     $stamp  = Get-Date -Format 'yyyyMMdd-HHmmss'
-    $revert = Join-Path (Get-ReportDir) "revert-screensaver-$stamp.ps1"
+    $revert = Join-Path (Get-ReportDir) ("revert-screensaver-$stamp" + '.ps1')
     $commands = ($undo | ForEach-Object { "    `"$_`"" }) -join ",`r`n"
     @"
-<# Undoes tools\windows\screensaver.ps1 -Apply of $stamp. Usage: .\revert-screensaver-$stamp.ps1 -TvHost <tv ip> #>
+<# Undoes what tools\windows\screensaver.ps1 applied at $stamp. Run this file with the TV address in -TvHost. #>
 param([string]`$TvHost, [string]`$AdbPath)
 Set-StrictMode -Version Latest
 `$ErrorActionPreference = 'Stop'

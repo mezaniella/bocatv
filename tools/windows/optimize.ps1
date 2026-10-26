@@ -146,10 +146,10 @@ if ($Apply) {
 # --- Revert script ----------------------------------------------------------------------------
 $reports = Get-ReportDir
 if ($Apply -and $undo.Count) {
-    $revert = Join-Path $reports "revert-$stamp.ps1"
+    $revert = Join-Path $reports ("revert-$stamp" + '.ps1')
     $commands = ($undo | ForEach-Object { "    '$_'" }) -join ",`r`n"
     @"
-<# Undoes what tools\windows\optimize.ps1 changed at $stamp. Usage: .\revert-$stamp.ps1 -TvHost <tv ip> #>
+<# Undoes what tools\windows\optimize.ps1 changed at $stamp. Run this file with the TV address in -TvHost. #>
 param([string]`$TvHost, [string]`$AdbPath)
 Set-StrictMode -Version Latest
 `$ErrorActionPreference = 'Stop'
