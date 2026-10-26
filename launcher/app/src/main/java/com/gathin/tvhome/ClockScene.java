@@ -77,8 +77,8 @@ final class ClockScene {
         }
     };
 
-    /** root is the inflated dream_clock layout; cfg brings the theme's colours (Config.load). */
-    ClockScene(View root, Config cfg) {
+    /** root is the inflated dream_clock layout; call useHomeWallpaper after construction for the theme's colours. */
+    ClockScene(View root) {
         content = root.findViewById(R.id.dreamContent);
         ambient = root.findViewById(R.id.dreamAmbient);
         glow = new GradientDrawable();
